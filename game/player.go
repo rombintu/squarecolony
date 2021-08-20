@@ -10,21 +10,17 @@ type PlayerClass struct {
 }
 
 type Player struct {
-	Id       int
-	Name     string
-	TeamName string
-	Points   [2]int
-	Base     Base
+	Id   int
+	Name string
+	Base Base
 	// Type    Type
 }
 
-func NewPlayer(
+func newPlayer(
 	id int,
-	name, teamName string,
-	points [2]int,
-	capacityBase int,
-) Player {
-	return Player{id, name, teamName, points,
-		newBase(id, id, capacityBase, name+"/base"),
-	}
+	name string,
+	sizeField [2]int,
+) (Player, Cell) {
+	base, cell := newBase(id, name+"/Base", sizeField)
+	return Player{id, name, base}, cell
 }

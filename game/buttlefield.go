@@ -4,42 +4,59 @@ import (
 	"log"
 )
 
+type Cell struct {
+	ID      int
+	isBase  bool
+	isResrc bool
+	Points  [2]int
+}
+
 type Buttlefield struct {
-	Id         int
 	PlayerList []Player
 	BaseList   []Base
-	Size       [2]int
 	Resources  []Resource
+	Cells      []Cell
+	Size       [2]int
 }
 
+// Create new ButtleField of game
 func NewButtlefield(
-	id int,
-	playerList []Player,
-	baseList []Base,
+	numResorce int,
+	playerNameList [][]string,
 	sizeField [2]int,
-	numResorce, capacity int,
 ) Buttlefield {
-	var resourcesListNames []string = RandomSelectFromArr(resourceTypeList, numResorce)
+	resourcesList := RandomSelectFromArr(resourceTypeList, numResorce)
+
+	var playerList []Player
+	var baseList []Base
 	var resources []Resource
-	for i, resourceName := range resourcesListNames {
-		resources = append(
-			resources,
-			newResources(i, resourceName, sizeField),
-		)
+	var cells []Cell
+
+	for i, name := range playerNameList {
+		player, cell := newPlayer(i+1, name[0]+"/"+name[1], sizeField)
+		baseList = append(baseList, player.Base)
+		playerList = append(playerList, player)
+		cells = append(cells, cell)
 	}
+
+	for i, name := range resourcesList {
+		resource, cell := newResource(i+1, name, sizeField)
+		resources = append(resources, resource)
+		cells = append(cells, cell)
+	}
+
 	return Buttlefield{
-		id,
 		playerList,
 		baseList,
-		sizeField,
 		resources,
+		cells,
+		sizeField,
 	}
 }
 
+// Show main buttlefield in console
 func (bf *Buttlefield) ShowButtlefield() {
-	// for i:=0; i < len(bf.Size); i++ {
-	// 	// TODO
-	// }
+	//
 }
 
 func (bf *Buttlefield) ShowButtlefieldInfo() {

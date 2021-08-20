@@ -1,39 +1,37 @@
 package main
 
 import (
-	"github.com/TwinProduction/go-color"
+	"fmt"
+
 	"github.com/rombintu/square_colony/game"
 )
 
 func buildGame() {
 	// CONFIG
-	var sizeField [2]int = [2]int{-100, 100}
-	var numResorce, capacityResource, capacityBase int = 5, 100, 300
+	var sizeField [2]int = [2]int{-10, 20}
+	var numResorce int = 3
 
 	// INIT
-	var id_bf, id_pl1 int = 1, 1
+	// log := utils.NewLogger()
+	playerNameList := [][]string{
+		{"Player1", game.ClassTypeList[0]},
+		{"Player2", game.ClassTypeList[2]},
+	}
 
-	playerOne := game.NewPlayer(
-		id_pl1, "name1", "TeamName",
-		[2]int{1, 1}, capacityBase,
+	bf := game.NewButtlefield(
+		numResorce,
+		playerNameList,
+		sizeField,
 	)
-	var playerList []game.Player = []game.Player{playerOne}
-	var baseList []game.Base
 
-	for _, player := range playerList {
-		baseList = append(baseList, player.Base)
-	}
-
-	bf := game.NewButtlefield(id_bf, playerList, baseList, sizeField, numResorce, capacityResource)
-
-	// bf.ShowButtlefieldInfo()
-	// bf.ShowPlayerList()
-	// log.Println(bf.Resources)
+	// log.Debug(bf.Resources)
 	// log.Println(baseList)
-
-	for i := 0; i < len(bf.Resources); i++ {
-		game.Colorite(bf.Resources[i], color.Red)
+	// bf.ShowButtlefield()
+	for i := 0; i < len(bf.Cells); i++ {
+		println(i, fmt.Sprint(bf.Cells[i].Points))
 	}
+
+	println(fmt.Sprint(bf.PlayerList[0]))
 }
 
 func main() {

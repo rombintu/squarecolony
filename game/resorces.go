@@ -13,27 +13,34 @@ type resourceType struct {
 }
 
 type Resource struct {
-	Type     resourceType
-	ID       int
-	OwnerID  int
-	Points   [2]int
+	Type    resourceType
+	ID      int
+	OwnerID int
+	// Points   [2]int
+	Cell     Cell
 	IsMining bool
 }
 
-func newResources(id int, name string, sizeField [2]int) Resource {
+func newResource(id int, name string, sizeField [2]int) (Resource, Cell) {
 	var points [2]int = [2]int{
-		randomizer(sizeField[0], sizeField[1]),
-		randomizer(sizeField[0], sizeField[1]),
+		randint(sizeField[0], sizeField[1]),
+		randint(sizeField[0], sizeField[1]),
 	}
-	resourceSize := randomizer(1, 4)
+	resourceSize := randint(1, 4)
 	var capacity int
 	switch resourceSize {
 	case 1:
-		capacity = randomizer(capacityDefault, capacityDefault*2)
+		capacity = randint(capacityDefault, capacityDefault*2)
 	case 2:
-		capacity = randomizer(capacityDefault*3, capacityDefault*4)
+		capacity = randint(capacityDefault*3, capacityDefault*4)
 	case 3:
-		capacity = randomizer(capacityDefault*5, capacityDefault*6)
+		capacity = randint(capacityDefault*5, capacityDefault*6)
+	}
+
+	cell := Cell{
+		isBase:  false,
+		isResrc: true,
+		Points:  points,
 	}
 
 	return Resource{
@@ -44,7 +51,7 @@ func newResources(id int, name string, sizeField [2]int) Resource {
 		},
 		id,
 		0,
-		points,
+		cell,
 		false,
-	}
+	}, cell
 }
