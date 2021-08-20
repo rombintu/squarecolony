@@ -1,8 +1,7 @@
 package main
 
 import (
-	"log"
-
+	"github.com/TwinProduction/go-color"
 	"github.com/rombintu/square_colony/game"
 )
 
@@ -27,10 +26,14 @@ func buildGame() {
 
 	bf := game.NewButtlefield(id_bf, playerList, baseList, sizeField, numResorce, capacityResource)
 
-	bf.ShowButtlefieldInfo()
-	bf.ShowPlayerList()
-	log.Println(bf.Resources)
-	log.Println(baseList)
+	// bf.ShowButtlefieldInfo()
+	// bf.ShowPlayerList()
+	// log.Println(bf.Resources)
+	// log.Println(baseList)
+
+	for i := 0; i < len(bf.Resources); i++ {
+		game.Colorite(bf.Resources[i], color.Red)
+	}
 }
 
 func main() {

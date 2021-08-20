@@ -1,6 +1,6 @@
 package game
 
-var ClassNameList []string = []string{
+var ClassTypeList []string = []string{
 	"Larius", "Red", "Polyergus",
 	"Myrmica", "Formica", "Pharaoh",
 }
@@ -15,7 +15,7 @@ type Player struct {
 	TeamName string
 	Points   [2]int
 	Base     Base
-	// Class    Class
+	// Type    Type
 }
 
 func NewPlayer(

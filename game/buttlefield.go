@@ -1,7 +1,6 @@
 package game
 
 import (
-	"fmt"
 	"log"
 )
 
@@ -10,7 +9,7 @@ type Buttlefield struct {
 	PlayerList []Player
 	BaseList   []Base
 	Size       [2]int
-	Resources  Resources
+	Resources  []Resource
 }
 
 func NewButtlefield(
@@ -20,7 +19,14 @@ func NewButtlefield(
 	sizeField [2]int,
 	numResorce, capacity int,
 ) Buttlefield {
-	resources := newResources(numResorce, capacity, sizeField)
+	var resourcesListNames []string = RandomSelectFromArr(resourceTypeList, numResorce)
+	var resources []Resource
+	for i, resourceName := range resourcesListNames {
+		resources = append(
+			resources,
+			newResources(i, resourceName, sizeField),
+		)
+	}
 	return Buttlefield{
 		id,
 		playerList,
@@ -31,7 +37,9 @@ func NewButtlefield(
 }
 
 func (bf *Buttlefield) ShowButtlefield() {
-	fmt.Println("==============")
+	// for i:=0; i < len(bf.Size); i++ {
+	// 	// TODO
+	// }
 }
 
 func (bf *Buttlefield) ShowButtlefieldInfo() {
