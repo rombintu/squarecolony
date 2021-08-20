@@ -5,8 +5,14 @@ import (
 	"time"
 )
 
+var resourceNameList []string = []string{
+	"Leaves", "Berry", "Honey",
+	"Corpse", "Leftovers",
+}
+
 type Resources struct {
-	Id       int
+	Id int
+	// Name string
 	Capacity int
 	Owner    int
 	Points   [][2]int
