@@ -17,7 +17,8 @@ Ant colony-like game
 Пример команд 1 (docker-like):
 * `colony ps` Выводит список созданных отрядов
 * `colony images` Выводит список образов доступных отрядов
-* `colony run -d -p ant/worker` Создание и запуск нового рабочего отряда
+* `colony run -d -p ant/worker` Создание и запуск нового рабочего отряда  
+
 Пример команд 2 (rpg-like):
 * `colony find -r -a` Поиск\вывод всех ресурсов и информацию о них
 * `colony info -v --name <name>` Вывод подробной информации о колонии
