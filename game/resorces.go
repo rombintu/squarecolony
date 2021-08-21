@@ -2,7 +2,7 @@ package game
 
 var ordinaryResources []string = []string{"Leaves", "Berry"}
 var raresResources []string = []string{"Honey", "Corpse", "Leftovers"}
-var resourceTypeList [][]string = [][]string{ordinaryResources, raresResources}
+var resourceTypeListNames [][]string = [][]string{ordinaryResources, raresResources}
 
 var capacityDefault int = 40
 
@@ -40,7 +40,7 @@ func newResource(id int, name string) (Resource, *Cell) {
 		Points:   [2]int{},
 	}
 
-	return Resource{
+	res := Resource{
 		Type: resourceType{
 			Name:        name,
 			Size:        resourceSize,
@@ -51,5 +51,7 @@ func newResource(id int, name string) (Resource, *Cell) {
 		OwnerID:  0,
 		Cell:     cell,
 		IsMining: false,
-	}, &cell
+	}
+
+	return res, &res.Cell
 }

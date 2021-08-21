@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// Cell of Buttlefield
 type Cell struct {
 	ID       int
 	isBase   bool
@@ -14,6 +15,7 @@ type Cell struct {
 	Points   [2]int
 }
 
+// Main object
 type Buttlefield struct {
 	PlayerList []Player
 	BaseList   []*Base
@@ -24,33 +26,39 @@ type Buttlefield struct {
 
 // Create new ButtleField of game
 func NewButtlefield(
-	numResorce int,
-	playerNameList [][]string,
+	countResorces int,
+	playersInfoList [][]string,
 	sizeField [2]int,
 ) Buttlefield {
-	resourcesList := RandomSelectFromArr(resourceTypeList, numResorce)
+	resourcesInfoList := RandomSelectFromArr(
+		resourceTypeListNames,
+		countResorces,
+	)
 
 	var playerList []Player
 	var baseList []*Base
 	var resources []Resource
 	var cells []*Cell
 
-	for i, name := range playerNameList {
-		player, cell := newPlayer(i+1, name[0]+"/"+name[1])
+	for i, info := range playersInfoList {
+		player, cell := newPlayer(i+1, info)
 		baseList = append(baseList, &player.Base)
 		playerList = append(playerList, player)
 		cells = append(cells, cell)
 	}
 
-	for i, name := range resourcesList {
-		resource, cell := newResource(i+1, name)
+	for i, info := range resourcesInfoList {
+		resource, cell := newResource(i+1, info)
 		resources = append(resources, resource)
 		cells = append(cells, cell)
 	}
 
 	for _, cell := range cells {
+		// points := &cell.Points
 		setPoints(cell, cells, sizeField)
 	}
+
+	baseList[0].ID = 99
 
 	return Buttlefield{
 		PlayerList: playerList,

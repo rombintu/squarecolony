@@ -1,10 +1,11 @@
 package game
 
-// CONFIG
+// ========= CONFIG ========= //
+
 var capacityBaseDefault int = 10000
 
 type Base struct {
-	Id          int
+	ID          int
 	OwnerID     int
 	CapacityMax int
 	Capacity    int
@@ -21,7 +22,14 @@ func newBase(id int, name string) (Base, *Cell) {
 		Points:   [2]int{},
 	}
 
-	return Base{
-		id, id, capacityBaseDefault, 1000, name, cell,
-	}, &cell
+	base := Base{
+		id,
+		id,
+		capacityBaseDefault,
+		capacityBaseDefault / 100 * 10,
+		name,
+		cell,
+	}
+
+	return base, &base.Cell
 }

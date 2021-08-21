@@ -1,25 +1,37 @@
 package game
 
-var ClassTypeList []string = []string{
+import (
+	"fmt"
+)
+
+var PlayerTypeListNames []string = []string{
 	"Larius", "Red", "Polyergus",
 	"Myrmica", "Formica", "Pharaoh",
 }
 
-type PlayerClass struct {
-	Name string
-}
-
 type Player struct {
-	Id   int
+	ID   int
 	Name string
+	Type string
 	Base Base
-	// Type    Type
 }
 
 func newPlayer(
 	id int,
-	name string,
+	playerInfo []string,
 ) (Player, *Cell) {
-	base, cell := newBase(id, name+"/Base")
-	return Player{id, name, base}, cell
+	base, cell := newBase(
+		id,
+		fmt.Sprintf(
+			"[%s/%s]",
+			playerInfo[0],
+			playerInfo[1],
+		),
+	)
+	return Player{
+		ID:   id,
+		Name: playerInfo[0],
+		Type: playerInfo[1],
+		Base: base,
+	}, cell
 }

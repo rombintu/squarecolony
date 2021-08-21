@@ -7,19 +7,23 @@ import (
 )
 
 func buildGame() {
-	// CONFIG
-	var sizeField [2]int = [2]int{10, 20}
-	var numResorce int = 3
+	// ========= CONFIG ========= //
 
-	// INIT
+	// Size buttlefield, recommend = [10, 20]
+	var sizeField [2]int = [2]int{10, 20}
+	// Count rescource pints
+	var countResorces int = 3
+
+	// ========= INIT ========= //
+
 	// LOG := utils.NewLogger()
 	playerNameList := [][]string{
-		{"Player1", game.ClassTypeList[0]},
-		{"Player2", game.ClassTypeList[2]},
+		{"Player1", game.PlayerTypeListNames[0]},
+		{"Player2", game.PlayerTypeListNames[2]},
 	}
 
 	bf := game.NewButtlefield(
-		numResorce,
+		countResorces,
 		playerNameList,
 		sizeField,
 	)
@@ -31,7 +35,17 @@ func buildGame() {
 		println(i, fmt.Sprint(bf.Cells[i].Points))
 	}
 
-	// println(fmt.Sprint(bf.PlayerList[0]))
+	// for i := 0; i < len(bf.PlayerList); i++ {
+	// 	println(i, fmt.Sprint(bf.PlayerList))
+	// }
+
+	for i, player := range bf.PlayerList {
+		println(i, fmt.Sprint(player))
+	}
+
+	for i, res := range bf.Resources {
+		println(i, fmt.Sprint(res))
+	}
 }
 
 func main() {
