@@ -19,8 +19,8 @@ type Player struct {
 func newPlayer(
 	id int,
 	playerInfo []string,
-) (Player, *Cell) {
-	base, cell := newBase(
+) Player {
+	base := newBase(
 		id,
 		fmt.Sprintf(
 			"[%s/%s]",
@@ -33,5 +33,5 @@ func newPlayer(
 		Name: playerInfo[0],
 		Type: playerInfo[1],
 		Base: base,
-	}, cell
+	}
 }

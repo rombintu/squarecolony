@@ -40,9 +40,9 @@ func Colorite(messsage interface{}, c string) {
 
 // Print cells
 func cellToString(cell *Cell) string {
-	if cell.isBase {
+	if cell.IsBase {
 		return ("[B]")
-	} else if cell.isResrc {
+	} else if cell.IsResrc {
 		return ("[R]")
 	}
 	return "[ ]"

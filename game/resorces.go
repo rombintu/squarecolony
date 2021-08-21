@@ -21,7 +21,7 @@ type Resource struct {
 	IsMining bool
 }
 
-func newResource(id int, name string) (Resource, *Cell) {
+func newResource(id int, name string) Resource {
 	resourceSize := randint(1, 4)
 	var capacity int
 	switch resourceSize {
@@ -34,10 +34,10 @@ func newResource(id int, name string) (Resource, *Cell) {
 	}
 
 	cell := Cell{
-		isBase:   false,
-		isResrc:  true,
+		IsBase:   false,
+		IsResrc:  true,
 		toString: "R",
-		Points:   [2]int{},
+		points:   [2]int{},
 	}
 
 	res := Resource{
@@ -53,5 +53,5 @@ func newResource(id int, name string) (Resource, *Cell) {
 		IsMining: false,
 	}
 
-	return res, &res.Cell
+	return res
 }

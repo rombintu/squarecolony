@@ -14,12 +14,12 @@ type Base struct {
 }
 
 // Create new Base{...}
-func newBase(id int, name string) (Base, *Cell) {
+func newBase(id int, name string) Base {
 	cell := Cell{
-		isBase:   true,
-		isResrc:  false,
+		IsBase:   true,
+		IsResrc:  false,
 		toString: "B",
-		Points:   [2]int{},
+		points:   [2]int{},
 	}
 
 	base := Base{
@@ -30,6 +30,5 @@ func newBase(id int, name string) (Base, *Cell) {
 		name,
 		cell,
 	}
-
-	return base, &base.Cell
+	return base
 }

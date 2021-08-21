@@ -2,25 +2,16 @@ package game
 
 import (
 	"fmt"
-	"log"
+	"reflect"
 	"strings"
 )
-
-// Cell of Buttlefield
-type Cell struct {
-	ID       int
-	isBase   bool
-	isResrc  bool
-	toString string
-	Points   [2]int
-}
 
 // Main object
 type Buttlefield struct {
 	PlayerList []Player
 	BaseList   []*Base
 	Resources  []Resource
-	Cells      []*Cell
+	CellsCount int
 	Size       [2]int
 }
 
@@ -38,39 +29,32 @@ func NewButtlefield(
 	var playerList []Player
 	var baseList []*Base
 	var resources []Resource
-	var cells []*Cell
+	var cells int
 
 	for i, info := range playersInfoList {
-		player, cell := newPlayer(i+1, info)
-		baseList = append(baseList, &player.Base)
+		player := newPlayer(i+1, info)
 		playerList = append(playerList, player)
-		cells = append(cells, cell)
+		baseList = append(baseList, &player.Base)
+		cells++
 	}
 
 	for i, info := range resourcesInfoList {
-		resource, cell := newResource(i+1, info)
+		resource := newResource(i+1, info)
 		resources = append(resources, resource)
-		cells = append(cells, cell)
+		cells++
 	}
-
-	for _, cell := range cells {
-		// points := &cell.Points
-		setPoints(cell, cells, sizeField)
-	}
-
-	baseList[0].ID = 99
 
 	return Buttlefield{
 		PlayerList: playerList,
 		BaseList:   baseList,
 		Resources:  resources,
-		Cells:      cells,
+		CellsCount: cells,
 		Size:       sizeField,
 	}
 }
 
 // Show main buttlefield in console
-func (bf *Buttlefield) ShowButtlefield() {
+func (bf *Buttlefield) ShowButtlefield(points [][2]int) {
 
 	print("0  | ")
 
@@ -87,20 +71,32 @@ func (bf *Buttlefield) ShowButtlefield() {
 	print("\n")
 	for x := 1; x < bf.Size[0]+1; x++ {
 		if x < 10 {
-			fmt.Printf("%d  | \n", x)
+			fmt.Printf("%d  | ", x)
 		} else {
-			fmt.Printf("%d | \n", x)
+			fmt.Printf("%d | ", x)
 		}
-		for y := 0; y < bf.Size[1]; y++ {
-			// pass
+		for y := 1; y < bf.Size[1]+1; y++ {
+			for _, p := range points {
+				if reflect.DeepEqual([2]int{x, y}, p) {
+					fmt.Print("*")
+				}
+			}
 		}
 	}
 }
 
-func (bf *Buttlefield) getInfo() {
+func (bf *Buttlefield) GetInfo() {
 	// log.
 }
 
-func (bf *Buttlefield) getPlayerList() {
-	log.Println("PLAYERS:", bf.PlayerList)
+func (bf *Buttlefield) GetPlayerList() []Player {
+	return bf.PlayerList
+}
+
+func (bf *Buttlefield) GetBaseList() []Base {
+	var arr []Base
+	for _, player := range bf.PlayerList {
+		arr = append(arr, player.Base)
+	}
+	return arr
 }
