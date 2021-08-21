@@ -8,11 +8,11 @@ import (
 
 func buildGame() {
 	// CONFIG
-	var sizeField [2]int = [2]int{-10, 20}
+	var sizeField [2]int = [2]int{10, 20}
 	var numResorce int = 3
 
 	// INIT
-	// log := utils.NewLogger()
+	// LOG := utils.NewLogger()
 	playerNameList := [][]string{
 		{"Player1", game.ClassTypeList[0]},
 		{"Player2", game.ClassTypeList[2]},
@@ -31,7 +31,7 @@ func buildGame() {
 		println(i, fmt.Sprint(bf.Cells[i].Points))
 	}
 
-	println(fmt.Sprint(bf.PlayerList[0]))
+	// println(fmt.Sprint(bf.PlayerList[0]))
 }
 
 func main() {

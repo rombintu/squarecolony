@@ -19,8 +19,7 @@ type Player struct {
 func newPlayer(
 	id int,
 	name string,
-	sizeField [2]int,
-) (Player, Cell) {
-	base, cell := newBase(id, name+"/Base", sizeField)
+) (Player, *Cell) {
+	base, cell := newBase(id, name+"/Base")
 	return Player{id, name, base}, cell
 }

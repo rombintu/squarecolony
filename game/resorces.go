@@ -7,25 +7,21 @@ var resourceTypeList [][]string = [][]string{ordinaryResources, raresResources}
 var capacityDefault int = 40
 
 type resourceType struct {
-	Name     string
-	Size     int // 1 - small, 3 - big
-	Capacity int
+	Name        string
+	Size        int // 1 - small, 3 - big
+	CapacityMax int
+	Capacity    int
 }
 
 type Resource struct {
-	Type    resourceType
-	ID      int
-	OwnerID int
-	// Points   [2]int
+	Type     resourceType
+	ID       int
+	OwnerID  int
 	Cell     Cell
 	IsMining bool
 }
 
-func newResource(id int, name string, sizeField [2]int) (Resource, Cell) {
-	var points [2]int = [2]int{
-		randint(sizeField[0], sizeField[1]),
-		randint(sizeField[0], sizeField[1]),
-	}
+func newResource(id int, name string) (Resource, *Cell) {
 	resourceSize := randint(1, 4)
 	var capacity int
 	switch resourceSize {
@@ -38,20 +34,22 @@ func newResource(id int, name string, sizeField [2]int) (Resource, Cell) {
 	}
 
 	cell := Cell{
-		isBase:  false,
-		isResrc: true,
-		Points:  points,
+		isBase:   false,
+		isResrc:  true,
+		toString: "R",
+		Points:   [2]int{},
 	}
 
 	return Resource{
-		resourceType{
-			Name:     name,
-			Size:     resourceSize,
-			Capacity: capacity,
+		Type: resourceType{
+			Name:        name,
+			Size:        resourceSize,
+			CapacityMax: capacity,
+			Capacity:    capacity,
 		},
-		id,
-		0,
-		cell,
-		false,
-	}, cell
+		ID:       id,
+		OwnerID:  0,
+		Cell:     cell,
+		IsMining: false,
+	}, &cell
 }

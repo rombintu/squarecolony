@@ -39,17 +39,11 @@ func Colorite(messsage interface{}, c string) {
 }
 
 // Print cells
-func printCells(cells [][]Cell) {
-	for _, cell_i := range cells {
-		for _, cell_j := range cell_i {
-			if cell_j.isBase {
-				print("[B]")
-			} else if cell_j.isResrc {
-				print("[R]")
-			} else {
-				print("[ ]")
-			}
-		}
+func cellToString(cell *Cell) string {
+	if cell.isBase {
+		return ("[B]")
+	} else if cell.isResrc {
+		return ("[R]")
 	}
-
+	return "[ ]"
 }

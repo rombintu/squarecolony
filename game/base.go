@@ -13,14 +13,15 @@ type Base struct {
 }
 
 // Create new Base{...}
-func newBase(id int, name string, sizeField [2]int) (Base, Cell) {
+func newBase(id int, name string) (Base, *Cell) {
 	cell := Cell{
-		isBase:  true,
-		isResrc: false,
-		Points:  [2]int{randint(sizeField[0], sizeField[1])},
+		isBase:   true,
+		isResrc:  false,
+		toString: "B",
+		Points:   [2]int{},
 	}
 
 	return Base{
 		id, id, capacityBaseDefault, 1000, name, cell,
-	}, cell
+	}, &cell
 }
