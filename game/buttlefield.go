@@ -2,14 +2,13 @@ package game
 
 import (
 	"fmt"
-	"reflect"
 	"strings"
 )
 
 // Main object
 type Buttlefield struct {
 	PlayerList []Player
-	BaseList   []*Base
+	// BaseList   []*Base
 	Resources  []Resource
 	CellsCount int
 	Size       [2]int
@@ -27,14 +26,14 @@ func NewButtlefield(
 	)
 
 	var playerList []Player
-	var baseList []*Base
+	// var baseList []*Base
 	var resources []Resource
 	var cells int
 
 	for i, info := range playersInfoList {
 		player := newPlayer(i+1, info)
 		playerList = append(playerList, player)
-		baseList = append(baseList, &player.Base)
+		// baseList = append(baseList, &player.Base)
 		cells++
 	}
 
@@ -46,7 +45,7 @@ func NewButtlefield(
 
 	return Buttlefield{
 		PlayerList: playerList,
-		BaseList:   baseList,
+		// BaseList:   baseList,
 		Resources:  resources,
 		CellsCount: cells,
 		Size:       sizeField,
@@ -76,11 +75,12 @@ func (bf *Buttlefield) ShowButtlefield(points [][2]int) {
 			fmt.Printf("%d | ", x)
 		}
 		for y := 1; y < bf.Size[1]+1; y++ {
-			for _, p := range points {
-				if reflect.DeepEqual([2]int{x, y}, p) {
-					fmt.Print("*")
-				}
-			}
+			// TODO
+			// for _, p := range points {
+			// 	if reflect.DeepEqual([2]int{x, y}, p) {
+			// 		fmt.Print("*")
+			// 	}
+			// }
 		}
 	}
 }

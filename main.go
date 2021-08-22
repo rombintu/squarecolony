@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/rombintu/square_colony/game"
 )
 
@@ -42,11 +44,11 @@ func buildGame() {
 		points = append(points, cell.GetPoint())
 	}
 
-	// fmt.Println(bf.BaseList)
+	fmt.Println(bf)
 
 	// log.Debug(bf.Resources)
 	// log.Println(baseList)
-	bf.ShowButtlefield(points)
+	// bf.ShowButtlefield(points)
 
 	// for i, player := range bf.PlayerList {
 	// 	println(i, fmt.Sprint(player))
