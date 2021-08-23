@@ -33,7 +33,3 @@ func (c *Cell) SetNewPoint(size [2]int, cells []*Cell) {
 
 	c.points = point
 }
-
-func printCell(cell *Cell) {
-
-}

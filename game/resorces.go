@@ -1,7 +1,7 @@
 package game
 
-var ordinaryResources []string = []string{"Leaves", "Berry"}
-var raresResources []string = []string{"Honey", "Corpse", "Leftovers"}
+var ordinaryResources []string = []string{"Leaves", "Berry", "Corpses"}
+var raresResources []string = []string{"Honey", "Leftovers"}
 var resourceTypeListNames [][]string = [][]string{ordinaryResources, raresResources}
 
 var capacityDefault int = 40

@@ -27,12 +27,12 @@ type Container struct {
 }
 
 type ContainerStatus interface {
-	Build() ([]Message, error)
-	Prepare() ([]Message, error)
-	Travel(from, dest [2]int) ([]Message, error)
-	Mine() ([]Message, error)
-	Defend() ([]Message, error)
-	Chill() ([]Message, error)
+	Build() (Message, error)
+	Prepare() (Message, error)
+	Travel(from, dest [2]int) (Message, error)
+	Mine() (Message, error)
+	Defend() (Message, error)
+	Chill() (Message, error)
 }
 
 func NewContainer(

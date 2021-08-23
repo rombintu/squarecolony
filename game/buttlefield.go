@@ -7,11 +7,11 @@ import (
 
 // Main object
 type Buttlefield struct {
-	PlayerList []Player
+	playerList []Player
 	// BaseList   []*Base
-	Resources  []Resource
-	CellsCount int
-	Size       [2]int
+	resources  []Resource
+	cellsCount int
+	size       [2]int
 }
 
 // Create new ButtleField of game
@@ -44,11 +44,31 @@ func NewButtlefield(
 	}
 
 	return Buttlefield{
-		PlayerList: playerList,
+		playerList: playerList,
 		// BaseList:   baseList,
-		Resources:  resources,
-		CellsCount: cells,
-		Size:       sizeField,
+		resources:  resources,
+		cellsCount: cells,
+		size:       sizeField,
+	}
+}
+
+// Generate new point of cells
+func (bf *Buttlefield) Init(size [2]int) {
+	var cells []*Cell
+	// var points [][2]int
+
+	for i := 0; i < len(bf.playerList); i++ {
+		cells = append(cells, &bf.playerList[i].Base.Cell)
+	}
+
+	for i := 0; i < len(bf.resources); i++ {
+		cells = append(cells, &bf.resources[i].Cell)
+	}
+
+	for i, cell := range cells {
+		cell.SetID(i + 1)
+		cell.SetNewPoint(size, cells)
+		// points = append(points, cell.GetPoint())
 	}
 }
 
@@ -57,7 +77,7 @@ func (bf *Buttlefield) ShowButtlefield(points [][2]int) {
 
 	print("0  | ")
 
-	for y0 := 1; y0 < bf.Size[1]+1; y0++ {
+	for y0 := 1; y0 < bf.size[1]+1; y0++ {
 		if y0 < 10 {
 			fmt.Printf(" %d ", y0)
 		} else {
@@ -66,15 +86,15 @@ func (bf *Buttlefield) ShowButtlefield(points [][2]int) {
 	}
 
 	print("\n")
-	fmt.Print(strings.Repeat("-+-", bf.Size[1]+2))
+	fmt.Print(strings.Repeat("-+-", bf.size[1]+2))
 	print("\n")
-	for x := 1; x < bf.Size[0]+1; x++ {
+	for x := 1; x < bf.size[0]+1; x++ {
 		if x < 10 {
 			fmt.Printf("%d  | ", x)
 		} else {
 			fmt.Printf("%d | ", x)
 		}
-		for y := 1; y < bf.Size[1]+1; y++ {
+		for y := 1; y < bf.size[1]+1; y++ {
 			// TODO
 			// for _, p := range points {
 			// 	if reflect.DeepEqual([2]int{x, y}, p) {
@@ -89,14 +109,18 @@ func (bf *Buttlefield) GetInfo() {
 	// log.
 }
 
-func (bf *Buttlefield) GetPlayerList() []Player {
-	return bf.PlayerList
+func (bf *Buttlefield) GetPlayers() []Player {
+	return bf.playerList
 }
 
-func (bf *Buttlefield) GetBaseList() []Base {
+func (bf *Buttlefield) GetBases() []Base {
 	var arr []Base
-	for _, player := range bf.PlayerList {
+	for _, player := range bf.playerList {
 		arr = append(arr, player.Base)
 	}
 	return arr
+}
+
+func (bf *Buttlefield) GetResources() []Resource {
+	return bf.resources
 }

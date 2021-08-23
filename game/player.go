@@ -10,10 +10,11 @@ var PlayerTypeListNames []string = []string{
 }
 
 type Player struct {
-	ID   int
-	Name string
-	Type string
-	Base Base
+	ID      int
+	Name    string
+	Type    string
+	Base    Base
+	Bonuses []Bonus
 }
 
 func newPlayer(

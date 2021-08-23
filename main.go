@@ -6,15 +6,30 @@ import (
 	"github.com/rombintu/square_colony/game"
 )
 
-func buildGame() {
+func buildGame(
+	players [][]string,
+	size [2]int,
+	countResorces int,
+) *game.Buttlefield {
+
+	bf := game.NewButtlefield(
+		countResorces,
+		players,
+		size,
+	)
+
+	bf.Init(size)
+
+	return &bf
+}
+
+func main() {
 	// ========= CONFIG ========= //
 
 	// Size buttlefield, recommend = [10, 20]
 	var sizeField [2]int = [2]int{10, 20}
-	// Count rescource pints
+	// Count rescource points
 	var countResorces int = 3
-	var cells []*game.Cell
-	var points [][2]int
 
 	// ========= INIT ========= //
 
@@ -24,28 +39,7 @@ func buildGame() {
 		{"Player2", game.PlayerTypeListNames[2]},
 	}
 
-	bf := game.NewButtlefield(
-		countResorces,
-		playerNameList,
-		sizeField,
-	)
-
-	for i := 0; i < len(bf.PlayerList); i++ {
-		cells = append(cells, &bf.PlayerList[i].Base.Cell)
-	}
-
-	for i := 0; i < len(bf.Resources); i++ {
-		cells = append(cells, &bf.Resources[i].Cell)
-	}
-
-	for i, cell := range cells {
-		cell.SetID(i + 1)
-		cell.SetNewPoint(sizeField, cells)
-		points = append(points, cell.GetPoint())
-	}
-
-	fmt.Println(bf)
-
+	bf := buildGame(playerNameList, sizeField, countResorces)
 	// log.Debug(bf.Resources)
 	// log.Println(baseList)
 	// bf.ShowButtlefield(points)
@@ -53,8 +47,12 @@ func buildGame() {
 	// for i, player := range bf.PlayerList {
 	// 	println(i, fmt.Sprint(player))
 	// }
-}
 
-func main() {
-	buildGame()
+	// fmt.Println(bf.PlayerList)
+	base := bf.GetBases()[0]
+	ress := bf.GetResources()
+	fmt.Println("BASE:", base)
+	fmt.Println("RESOURCES:", ress)
+	fmt.Println("NEAREST RESOURCE:", game.NearestResource(base, ress))
+
 }
