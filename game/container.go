@@ -26,7 +26,7 @@ type Container struct {
 	Points       [2]int
 }
 
-type ContainerStatus interface {
+type ContainerStatuser interface {
 	Build() (Message, error)
 	Prepare() (Message, error)
 	Travel(from, dest [2]int) (Message, error)
@@ -53,4 +53,40 @@ func NewContainer(
 		SpeedPoints:  speed,
 		Points:       points,
 	}
+}
+
+// Get container status
+func (c *Container) GetStatus() string {
+	return c.Status
+}
+
+// Set container status
+func (c *Container) SetStatus() string {
+	return c.Status
+}
+
+// Return container statistic
+func (c *Container) GetStats() map[string]int {
+	return map[string]int{
+		"hp":          c.HealthPoints,
+		"power":       c.PowerPoints,
+		"speed":       c.SpeedPoints,
+		"capacity":    c.Capacity,
+		"capacityMax": c.CapacityMax,
+	}
+}
+
+// Return container points
+func (c *Container) GetPoints() [2]int {
+	return c.Points
+}
+
+// Get owner id
+func (c *Container) GetOwnerId() int {
+	return c.OwnerID
+}
+
+// Set owner id
+func (c *Container) SetOwnerId(newID int) {
+	c.OwnerID = newID
 }

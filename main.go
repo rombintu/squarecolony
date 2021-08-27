@@ -53,6 +53,6 @@ func main() {
 	ress := bf.GetResources()
 	fmt.Println("BASE:", base)
 	fmt.Println("RESOURCES:", ress)
-	fmt.Println("NEAREST RESOURCE:", game.NearestResource(base, ress))
+	fmt.Println("NEAREST RESOURCE:", game.NearestResources(base, ress, -2))
 
 }

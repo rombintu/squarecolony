@@ -1,7 +1,6 @@
 package game
 
 import (
-	"fmt"
 	"math"
 	"math/rand"
 	"sort"
@@ -58,11 +57,12 @@ func DistBetweenCells(c1, c2 Cell) int {
 	return DistBetweenPoints(c1.points, c2.points)
 }
 
-// Return resource the closest to base
-func NearestResource(
+// Reurn all resource sorted of distance
+func GetAllResourcesSortedOfDist(
 	base Base,
 	resources []Resource,
-) Resource {
+) []Resource {
+	var sortedResources []Resource
 	mainCell := base.Cell
 	buff := make(map[int]Resource)
 	keys := make([]int, len(resources))
@@ -73,24 +73,41 @@ func NearestResource(
 	}
 
 	sort.Ints(keys)
-	fmt.Println(keys)
-	return buff[keys[0]]
+
+	for _, key := range keys {
+		sortedResources = append(sortedResources, buff[key])
+	}
+
+	return sortedResources
 }
 
-// func NearestResources(
-// 	base Base,
-// 	resources []Resource,
-// 	count int,
-// ) []Resource {
-// 	if count < len(resources) {
-// 		count = len(resources)
-// 	}
+// Return one resource the closest to base
+func NearestResource(
+	base Base,
+	resources []Resource,
+) Resource {
+	return GetAllResourcesSortedOfDist(
+		base,
+		resources,
+	)[0]
+}
 
-// 	points := base.Cell.points
+// Return (count) resources the closest to base
+func NearestResources(
+	base Base,
+	resources []Resource,
+	count int,
+) []Resource {
+	arr := GetAllResourcesSortedOfDist(
+		base,
+		resources,
+	)
 
-// 	var buff []Resource
+	if count >= len(arr) {
+		count = len(arr)
+	} else if count <= 0 {
+		count = 0
+	}
 
-// 	for i := 0; i < resources; i++ {
-// 		//
-// 	}
-// }
+	return arr[:count]
+}

@@ -32,3 +32,7 @@ func newBase(id int, name string) Base {
 	}
 	return base
 }
+
+func (b *Base) GetCell() Cell {
+	return b.Cell
+}

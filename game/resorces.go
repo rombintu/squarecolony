@@ -4,6 +4,7 @@ var ordinaryResources []string = []string{"Leaves", "Berry", "Corpses"}
 var raresResources []string = []string{"Honey", "Leftovers"}
 var resourceTypeListNames [][]string = [][]string{ordinaryResources, raresResources}
 
+// CONFIG VARS
 var capacityDefault int = 40
 
 type resourceType struct {
@@ -54,4 +55,27 @@ func newResource(id int, name string) Resource {
 	}
 
 	return res
+}
+
+func (r *Resource) GetCell() Cell {
+	return r.Cell
+}
+
+// Change resource status {bool}
+func (r *Resource) ChangeStatus() {
+	if r.IsMining {
+		r.IsMining = false
+	} else {
+		r.IsMining = true
+	}
+}
+
+// Get owner id
+func (r *Resource) GetOwnerId() int {
+	return r.OwnerID
+}
+
+// Set owner id
+func (r *Resource) SetOwnerId(newID int) {
+	r.OwnerID = newID
 }

@@ -1,9 +1,16 @@
 package game
 
-import "time"
-
 type Bonus struct {
-	Title     string
-	Data      []byte
-	Timestemp time.Time
+	Title   string
+	Message Message
+}
+
+func NewBonus(
+	title string,
+	message Message,
+) Bonus {
+	return Bonus{
+		Title:   title,
+		Message: message,
+	}
 }
