@@ -2,8 +2,12 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
 
+	"github.com/BurntSushi/toml"
 	"github.com/rombintu/square_colony/game"
+	"github.com/rombintu/square_colony/utils"
 )
 
 func buildGame(
@@ -19,27 +23,38 @@ func buildGame(
 	)
 
 	bf.Init(size)
-
 	return &bf
 }
 
 func main() {
-	// ========= CONFIG ========= //
+	var conf utils.Config
 
-	// Size buttlefield, recommend = [10, 20]
-	var sizeField [2]int = [2]int{10, 20}
-	// Count rescource points
-	var countResorces int = 3
+	// // ========= PARSE CONFIG ========= //
+	confFile, err := os.ReadFile("config.toml")
+	if err != nil {
+		log.Fatalf("%v", err)
+	}
+	if err != nil {
+		log.Fatalf("%v", err)
+	}
+	if _, err := toml.Decode(string(confFile), &conf); err != nil {
+		log.Fatalf("%v", err)
+	}
 
 	// ========= INIT ========= //
-
-	// LOG := utils.NewLogger()
+	Logger := utils.NewLogger(conf.Debug.LogLevel)
 	playerNameList := [][]string{
 		{"Player1", game.PlayerTypeListNames[0]},
 		{"Player2", game.PlayerTypeListNames[2]},
 	}
 
-	bf := buildGame(playerNameList, sizeField, countResorces)
+	bf := buildGame(
+		playerNameList,
+		conf.Gameplay.SizeField,
+		conf.Gameplay.CountResorces,
+	)
+
+	Logger.Debug("Create battlefield")
 	// log.Debug(bf.Resources)
 	// log.Println(baseList)
 	// bf.ShowButtlefield(points)
@@ -53,6 +68,6 @@ func main() {
 	ress := bf.GetResources()
 	fmt.Println("BASE:", base)
 	fmt.Println("RESOURCES:", ress)
-	fmt.Println("NEAREST RESOURCE:", game.NearestResources(base, ress, -2))
+	fmt.Println("NEAREST RESOURCE:", game.NearestResources(base, ress, 2))
 
 }

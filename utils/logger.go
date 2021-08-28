@@ -4,10 +4,16 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func NewLogger() log.Logger {
+func NewLogger(logLevel string) log.Logger {
 	logger := log.New()
-	logger.SetLevel(log.DebugLevel)
+
+	level, err := log.ParseLevel(logLevel)
+	if err != nil {
+		level = log.DebugLevel
+	}
+
+	logger.SetLevel(level)
 	// log.SetFormatter(&log.JSONFormatter{})
-	logger.SetFormatter(logger.Formatter)
+	// log.SetFormatter(log.Formatter)
 	return *logger
 }

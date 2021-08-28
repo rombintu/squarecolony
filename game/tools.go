@@ -49,7 +49,10 @@ func RandomSelectFromArr(arr [][]string, size int) []string {
 
 // Return distance between two points
 func DistBetweenPoints(f, d [2]int) int {
-	return int(math.Abs(float64((d[0] + d[1]) - (f[0] + f[1]))))
+	return int(math.Sqrt(
+		math.Pow((float64(f[0]+f[1])), 2) +
+			math.Pow(float64((d[0]+d[1])), 2)),
+	)
 }
 
 // Return distance between two cells

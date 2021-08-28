@@ -1,0 +1,10 @@
+# // ========= CONFIG ========= //
+
+title = "Toml config file [..]"
+
+[Gameplay]
+sizeField = [10, 20] # Size buttlefield, recommend = [10, 20]
+countResorces = 3 # Count rescource points
+
+[Debug]
+LogLevel = "debug"

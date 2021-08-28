@@ -1,9 +1,12 @@
 package game
 
-// ========= CONFIG ========= //
+// ========= INTERNAL CONFIG ========= //
 
 var capacityBaseDefault int = 10000
 
+// ========= INIT ========= //
+
+// Players base
 type Base struct {
 	ID          int
 	OwnerID     int

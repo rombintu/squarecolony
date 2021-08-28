@@ -1,10 +1,5 @@
 package game
 
-import (
-	"fmt"
-	"strings"
-)
-
 // Main object
 type Buttlefield struct {
 	playerList []Player
@@ -43,6 +38,7 @@ func NewButtlefield(
 		cells++
 	}
 
+	// logger.Info("Creating new battlefield")
 	return Buttlefield{
 		playerList: playerList,
 		// BaseList:   baseList,
@@ -73,37 +69,37 @@ func (bf *Buttlefield) Init(size [2]int) {
 }
 
 // Show main buttlefield in console
-func (bf *Buttlefield) ShowButtlefield(points [][2]int) {
+// func (bf *Buttlefield) ShowButtlefield(points [][2]int) {
 
-	print("0  | ")
+// 	print("0  | ")
 
-	for y0 := 1; y0 < bf.size[1]+1; y0++ {
-		if y0 < 10 {
-			fmt.Printf(" %d ", y0)
-		} else {
-			fmt.Printf("%d ", y0)
-		}
-	}
+// 	for y0 := 1; y0 < bf.size[1]+1; y0++ {
+// 		if y0 < 10 {
+// 			fmt.Printf(" %d ", y0)
+// 		} else {
+// 			fmt.Printf("%d ", y0)
+// 		}
+// 	}
 
-	print("\n")
-	fmt.Print(strings.Repeat("-+-", bf.size[1]+2))
-	print("\n")
-	for x := 1; x < bf.size[0]+1; x++ {
-		if x < 10 {
-			fmt.Printf("%d  | ", x)
-		} else {
-			fmt.Printf("%d | ", x)
-		}
-		for y := 1; y < bf.size[1]+1; y++ {
-			// TODO
-			// for _, p := range points {
-			// 	if reflect.DeepEqual([2]int{x, y}, p) {
-			// 		fmt.Print("*")
-			// 	}
-			// }
-		}
-	}
-}
+// 	print("\n")
+// 	fmt.Print(strings.Repeat("-+-", bf.size[1]+2))
+// 	print("\n")
+// 	for x := 1; x < bf.size[0]+1; x++ {
+// 		if x < 10 {
+// 			fmt.Printf("%d  | ", x)
+// 		} else {
+// 			fmt.Printf("%d | ", x)
+// 		}
+// 		for y := 1; y < bf.size[1]+1; y++ {
+// 			// TODO
+// 			// for _, p := range points {
+// 			// 	if reflect.DeepEqual([2]int{x, y}, p) {
+// 			// 		fmt.Print("*")
+// 			// 	}
+// 			// }
+// 		}
+// 	}
+// }
 
 func (bf *Buttlefield) GetInfo() {
 	// log.
