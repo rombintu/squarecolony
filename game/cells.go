@@ -2,7 +2,7 @@ package game
 
 import "reflect"
 
-// Cell of Buttlefield
+// Cell of Battlefield
 type Cell struct {
 	ID       int
 	IsBase   bool

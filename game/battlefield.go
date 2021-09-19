@@ -1,7 +1,7 @@
 package game
 
 // Main object
-type Buttlefield struct {
+type Battlefield struct {
 	playerList []Player
 	// BaseList   []*Base
 	resources  []Resource
@@ -9,12 +9,12 @@ type Buttlefield struct {
 	size       [2]int
 }
 
-// Create new ButtleField of game
-func NewButtlefield(
+// Create new Battlefield of game
+func NewBattlefield(
 	countResorces int,
 	playersInfoList [][]string,
 	sizeField [2]int,
-) Buttlefield {
+) Battlefield {
 	resourcesInfoList := RandomSelectFromArr(
 		resourceTypeListNames,
 		countResorces,
@@ -39,7 +39,7 @@ func NewButtlefield(
 	}
 
 	// logger.Info("Creating new battlefield")
-	return Buttlefield{
+	return Battlefield{
 		playerList: playerList,
 		// BaseList:   baseList,
 		resources:  resources,
@@ -49,7 +49,7 @@ func NewButtlefield(
 }
 
 // Generate new point of cells
-func (bf *Buttlefield) Init(size [2]int) {
+func (bf *Battlefield) Init(size [2]int) {
 	var cells []*Cell
 	// var points [][2]int
 
@@ -68,8 +68,8 @@ func (bf *Buttlefield) Init(size [2]int) {
 	}
 }
 
-// Show main buttlefield in console
-// func (bf *Buttlefield) ShowButtlefield(points [][2]int) {
+// Show main battlefield in console
+// func (bf *Battlefield) ShowBattlefield(points [][2]int) {
 
 // 	print("0  | ")
 
@@ -101,15 +101,15 @@ func (bf *Buttlefield) Init(size [2]int) {
 // 	}
 // }
 
-func (bf *Buttlefield) GetInfo() {
+func (bf *Battlefield) GetInfo() {
 	// log.
 }
 
-func (bf *Buttlefield) GetPlayers() []Player {
+func (bf *Battlefield) GetPlayers() []Player {
 	return bf.playerList
 }
 
-func (bf *Buttlefield) GetBases() []Base {
+func (bf *Battlefield) GetBases() []Base {
 	var arr []Base
 	for _, player := range bf.playerList {
 		arr = append(arr, player.Base)
@@ -117,6 +117,6 @@ func (bf *Buttlefield) GetBases() []Base {
 	return arr
 }
 
-func (bf *Buttlefield) GetResources() []Resource {
+func (bf *Battlefield) GetResources() []Resource {
 	return bf.resources
 }

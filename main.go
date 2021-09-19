@@ -14,9 +14,9 @@ func buildGame(
 	players [][]string,
 	size [2]int,
 	countResorces int,
-) *game.Buttlefield {
+) *game.Battlefield {
 
-	bf := game.NewButtlefield(
+	bf := game.NewBattlefield(
 		countResorces,
 		players,
 		size,
@@ -29,7 +29,7 @@ func buildGame(
 func main() {
 	var conf utils.Config
 
-	// // ========= PARSE CONFIG ========= //
+	// ========= PARSE CONFIG ========= //
 	confFile, err := os.ReadFile("config.toml")
 	if err != nil {
 		log.Fatalf("%v", err)
@@ -54,10 +54,10 @@ func main() {
 		conf.Gameplay.CountResorces,
 	)
 
-	Logger.Debug("Create battlefield")
+	Logger.Info("Create battlefield")
 	// log.Debug(bf.Resources)
 	// log.Println(baseList)
-	// bf.ShowButtlefield(points)
+	// bf.ShowBattlefield(points)
 
 	// for i, player := range bf.PlayerList {
 	// 	println(i, fmt.Sprint(player))
