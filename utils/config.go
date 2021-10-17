@@ -1,5 +1,12 @@
 package utils
 
+import (
+	"log"
+	"os"
+
+	"github.com/BurntSushi/toml"
+)
+
 type Config struct {
 	Title    string
 	Gameplay Gameplay
@@ -13,4 +20,23 @@ type Gameplay struct {
 
 type Debug struct {
 	LogLevel string
+}
+
+func NewConfig() Config {
+	var conf Config
+
+	// ========= PARSE CONFIG ========= //
+	confFile, err := os.ReadFile("config.toml")
+	if err != nil {
+		log.Fatalf("%v", err)
+	}
+	if err != nil {
+		log.Fatalf("%v", err)
+	}
+	if _, err := toml.Decode(string(confFile), &conf); err != nil {
+		log.Fatalf("%v", err)
+	}
+
+	return conf
+
 }

@@ -21,7 +21,7 @@ type Player struct {
 func newPlayer(
 	id int,
 	playerInfo []string,
-) Player {
+) *Player {
 	base := newBase(
 		id,
 		fmt.Sprintf(
@@ -30,7 +30,7 @@ func newPlayer(
 			playerInfo[1],
 		),
 	)
-	return Player{
+	return &Player{
 		ID:   id,
 		Name: playerInfo[0],
 		Type: playerInfo[1],

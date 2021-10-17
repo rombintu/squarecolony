@@ -1,71 +1,62 @@
 package game
 
-// Main object
+type Metadata struct {
+	CellsCount int
+	Size       [2]int
+}
 type Battlefield struct {
-	playerList []Player
-	// BaseList   []*Base
-	resources  []Resource
-	cellsCount int
-	size       [2]int
+	Players   []*Player
+	Resources []*Resource
+	Metadata  Metadata
 }
 
-// Create new Battlefield of game
-func NewBattlefield(
-	countResorces int,
-	playersInfoList [][]string,
-	sizeField [2]int,
-) Battlefield {
-	resourcesInfoList := RandomSelectFromArr(
-		resourceTypeListNames,
-		countResorces,
-	)
-
-	var playerList []Player
-	// var baseList []*Base
-	var resources []Resource
-	var cells int
+func (bf *Battlefield) InitPlayers(playersInfoList [][]string) {
 
 	for i, info := range playersInfoList {
 		player := newPlayer(i+1, info)
-		playerList = append(playerList, player)
-		// baseList = append(baseList, &player.Base)
-		cells++
+		bf.Players = append(bf.Players, player)
+		bf.Metadata.CellsCount++
 	}
+
+}
+
+func (bf *Battlefield) InitResources() {
+	resourcesInfoList := RandomSelectFromArr(
+		resourceTypeListNames,
+		bf.Config.Gameplay.CountResorces,
+	)
 
 	for i, info := range resourcesInfoList {
 		resource := newResource(i+1, info)
-		resources = append(resources, resource)
-		cells++
-	}
-
-	// logger.Info("Creating new battlefield")
-	return Battlefield{
-		playerList: playerList,
-		// BaseList:   baseList,
-		resources:  resources,
-		cellsCount: cells,
-		size:       sizeField,
+		bf.Data.Resources = append(bf.Data.Resources, resource)
+		bf.Data.Metadata.CellsCount++
 	}
 }
 
 // Generate new point of cells
-func (bf *Battlefield) Init(size [2]int) {
+func (bf *Battlefield) InitPoints() {
 	var cells []*Cell
 	// var points [][2]int
 
-	for i := 0; i < len(bf.playerList); i++ {
-		cells = append(cells, &bf.playerList[i].Base.Cell)
+	for i := 0; i < len(bf.Data.Players); i++ {
+		cells = append(cells, &bf.Data.Players[i].Base.Cell)
 	}
 
-	for i := 0; i < len(bf.resources); i++ {
-		cells = append(cells, &bf.resources[i].Cell)
+	for i := 0; i < len(bf.Data.Resources); i++ {
+		cells = append(cells, &bf.Data.Resources[i].Cell)
 	}
 
 	for i, cell := range cells {
 		cell.SetID(i + 1)
-		cell.SetNewPoint(size, cells)
+		cell.SetNewPoint(bf.Config.Gameplay.SizeField, cells)
 		// points = append(points, cell.GetPoint())
 	}
+}
+
+func (bf *Battlefield) Init(p [][]string) {
+	bf.InitPlayers(p)
+	bf.InitResources()
+	bf.InitPoints()
 }
 
 // Show main battlefield in console
@@ -105,18 +96,18 @@ func (bf *Battlefield) GetInfo() {
 	// log.
 }
 
-func (bf *Battlefield) GetPlayers() []Player {
-	return bf.playerList
+func (bf *Battlefield) GetPlayers() []*Player {
+	return bf.Data.Players
 }
 
 func (bf *Battlefield) GetBases() []Base {
 	var arr []Base
-	for _, player := range bf.playerList {
+	for _, player := range bf.Data.Players {
 		arr = append(arr, player.Base)
 	}
 	return arr
 }
 
-func (bf *Battlefield) GetResources() []Resource {
-	return bf.resources
+func (bf *Battlefield) GetResources() []*Resource {
+	return bf.Data.Resources
 }

@@ -22,7 +22,7 @@ type Resource struct {
 	IsMining bool
 }
 
-func newResource(id int, name string) Resource {
+func newResource(id int, name string) *Resource {
 	resourceSize := randint(1, 4)
 	var capacity int
 	switch resourceSize {
@@ -54,7 +54,7 @@ func newResource(id int, name string) Resource {
 		IsMining: false,
 	}
 
-	return res
+	return &res
 }
 
 func (r *Resource) GetCell() Cell {

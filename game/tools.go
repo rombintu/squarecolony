@@ -63,7 +63,7 @@ func DistBetweenCells(c1, c2 Cell) int {
 // Reurn all resource sorted of distance
 func GetAllResourcesSortedOfDist(
 	base Base,
-	resources []Resource,
+	resources []*Resource,
 ) []Resource {
 	var sortedResources []Resource
 	mainCell := base.Cell
@@ -71,7 +71,7 @@ func GetAllResourcesSortedOfDist(
 	keys := make([]int, len(resources))
 	for i := 0; i < len(resources); i++ {
 		p := DistBetweenCells(mainCell, resources[i].Cell)
-		buff[p] = resources[i]
+		buff[p] = *resources[i]
 		keys[i] = p
 	}
 
@@ -87,7 +87,7 @@ func GetAllResourcesSortedOfDist(
 // Return one resource the closest to base
 func NearestResource(
 	base Base,
-	resources []Resource,
+	resources []*Resource,
 ) Resource {
 	return GetAllResourcesSortedOfDist(
 		base,
@@ -98,7 +98,7 @@ func NearestResource(
 // Return (count) resources the closest to base
 func NearestResources(
 	base Base,
-	resources []Resource,
+	resources []*Resource,
 	count int,
 ) []Resource {
 	arr := GetAllResourcesSortedOfDist(
