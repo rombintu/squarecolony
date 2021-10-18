@@ -23,15 +23,15 @@ type Resource struct {
 }
 
 func newResource(id int, name string) *Resource {
-	resourceSize := randint(1, 4)
+	resourceSize := Randint(1, 4)
 	var capacity int
 	switch resourceSize {
 	case 1:
-		capacity = randint(capacityDefault, capacityDefault*2)
+		capacity = Randint(capacityDefault, capacityDefault*2)
 	case 2:
-		capacity = randint(capacityDefault*3, capacityDefault*4)
+		capacity = Randint(capacityDefault*3, capacityDefault*4)
 	case 3:
-		capacity = randint(capacityDefault*5, capacityDefault*6)
+		capacity = Randint(capacityDefault*5, capacityDefault*6)
 	}
 
 	cell := Cell{

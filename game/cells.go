@@ -22,8 +22,8 @@ func (c *Cell) GetPoint() [2]int {
 // Set points of cells. Checking repeatability
 func (c *Cell) SetNewPoint(size [2]int, cells []*Cell) {
 	point := [2]int{
-		randint(1, size[0]),
-		randint(1, size[1]),
+		Randint(1, size[0]),
+		Randint(1, size[1]),
 	}
 	for _, cell := range cells {
 		if reflect.DeepEqual(cell.points, point) {

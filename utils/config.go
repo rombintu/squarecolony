@@ -22,7 +22,7 @@ type Debug struct {
 	LogLevel string
 }
 
-func NewConfig() Config {
+func NewConfig() *Config {
 	var conf Config
 
 	// ========= PARSE CONFIG ========= //
@@ -37,6 +37,6 @@ func NewConfig() Config {
 		log.Fatalf("%v", err)
 	}
 
-	return conf
+	return &conf
 
 }
