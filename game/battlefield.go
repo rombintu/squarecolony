@@ -71,8 +71,9 @@ func ReturnCell(cell Cell) string {
 
 // Show main battlefield in console
 func (bf *Battlefield) ShowBF(size [2]int) {
+	fmt.Print("[  ]")
 	for h := 0; h < size[1]; h++ {
-		fmt.Printf("[%d]", h+1)
+		fmt.Printf("[%2.d]", h+1)
 
 	}
 	fmt.Print("\n")
@@ -80,9 +81,9 @@ func (bf *Battlefield) ShowBF(size [2]int) {
 		if x == 0 {
 			continue
 		}
-		fmt.Printf("[%d]-", x+1)
+		fmt.Printf("[%2.d]", x)
 		for y := 0; y < size[1]; y++ {
-			fmt.Print("[ ]")
+			fmt.Print("[  ]")
 		}
 		fmt.Print("\n")
 	}

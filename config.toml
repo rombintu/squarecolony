@@ -3,7 +3,7 @@
 title = "Toml config file [..]"
 
 [Gameplay]
-SizeField = [10, 20]    # Size buttlefield, recommend = [10, 20]
+SizeField = [5, 10]    # Size buttlefield, recommend = [10, 20]
 CountResorces = 3       # Count rescource points
 
 [Debug]
