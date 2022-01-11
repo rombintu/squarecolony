@@ -10,15 +10,16 @@ var PlayerTypeListNames []string = []string{
 }
 
 type Player struct {
-	ID      string
-	Name    string
-	Type    string
-	Base    Base
-	Bonuses []Bonus
-	isDead  bool
+	ID       string
+	Name     string
+	Password string
+	Type     string
+	Base     Base
+	Bonuses  []Bonus
+	isDead   bool
 }
 
-func newPlayer(id, name string) *Player {
+func newPlayer(id, name, password string) *Player {
 	base := newBase(
 		id,
 		fmt.Sprintf(
@@ -27,9 +28,10 @@ func newPlayer(id, name string) *Player {
 		),
 	)
 	return &Player{
-		ID:   id,
-		Name: name,
-		Base: base,
+		ID:       id,
+		Name:     name,
+		Password: password,
+		Base:     base,
 	}
 }
 

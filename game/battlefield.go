@@ -1,6 +1,7 @@
 package game
 
 import (
+	"errors"
 	"fmt"
 
 	uuid "github.com/satori/go.uuid"
@@ -18,16 +19,21 @@ type Battlefield struct {
 	SizeField [2]int
 }
 
-func (bf *Battlefield) AddPlayer(name string) {
+func (bf *Battlefield) AddPlayer(name, password string) error {
+	for _, p := range bf.Players {
+		if p.Name == name {
+			return errors.New("name use already")
+		}
+	}
 	id := uuid.NewV4().String()
-	player := newPlayer(id, name)
+	player := newPlayer(id, name, password)
 	bf.Players = append(bf.Players, player)
 
 	player.Base.Cell.SetNewPoint(bf.SizeField, bf.Metadata.Cells)
 
 	bf.Metadata.Cells = append(bf.Metadata.Cells, &player.Base.Cell)
 	bf.Metadata.CellsCount++
-
+	return nil
 }
 
 // func (bf *Battlefield) InitPlayers(playersInfoList [][]string) {
@@ -105,9 +111,9 @@ func (bf *Battlefield) ShowBF(size [2]int) {
 				pointsB := c.points
 				if pointsB == pointsA {
 					if c.IsBase {
-						fmt.Print("[🐜]")
+						fmt.Print("[🏠]")
 					} else if c.IsResrc {
-						fmt.Print("[🍫]")
+						fmt.Print("[🍩]")
 					}
 					continFlag = true
 					continue

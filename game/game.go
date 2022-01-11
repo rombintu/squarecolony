@@ -46,16 +46,21 @@ func (g *Game) caseInput(input []string) {
 	switch strings.TrimSpace(input[0]) {
 	case "exit":
 		g.Logger.Info("Game exiting...")
+	case "help":
+		g.Logger.Info("useradd <username> <class>")
 	case "map":
 		g.Battlefield.ShowBF(g.Config.Gameplay.SizeField)
 	case "useradd":
-		if len(input) != 2 {
+		if len(input) != 3 {
 			g.Logger.Error("Less values. Use: useradd <username> <class>")
 			return
 		}
-		g.Battlefield.AddPlayer(input[1])
+		if err := g.Battlefield.AddPlayer(input[1], input[2]); err != nil {
+			g.Logger.Error(err)
+			return
+		}
 		g.Logger.Info(
-			fmt.Sprintf("User %s was add", input[1]),
+			fmt.Sprintf("User %s was add. Password: %s", input[1], input[2]),
 		)
 	case "users":
 		players := g.Battlefield.GetPlayers()
