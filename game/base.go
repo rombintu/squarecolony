@@ -10,8 +10,8 @@ var capacityBaseDefault int = 10000
 
 // Players base
 type Base struct {
-	ID          int
-	OwnerID     int
+	ID          string
+	OwnerID     string
 	CapacityMax int
 	Capacity    int
 	Name        string
@@ -19,11 +19,11 @@ type Base struct {
 }
 
 // Create new Base{...}
-func newBase(id int, name string) Base {
+func newBase(id, name string) Base {
 	cell := Cell{
 		IsBase:   true,
 		IsResrc:  false,
-		toString: "B",
+		toString: "Bb",
 		points:   [2]int{},
 	}
 

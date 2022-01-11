@@ -15,10 +15,6 @@ func (c *Cell) SetID(ID int) {
 	c.ID = ID
 }
 
-func (c *Cell) GetPoint() [2]int {
-	return c.points
-}
-
 // Set points of cells. Checking repeatability
 func (c *Cell) SetNewPoint(size [2]int, cells []*Cell) {
 	point := [2]int{

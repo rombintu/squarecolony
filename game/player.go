@@ -10,7 +10,7 @@ var PlayerTypeListNames []string = []string{
 }
 
 type Player struct {
-	ID      int
+	ID      string
 	Name    string
 	Type    string
 	Base    Base
@@ -18,22 +18,17 @@ type Player struct {
 	isDead  bool
 }
 
-func newPlayer(
-	id int,
-	playerInfo []string,
-) *Player {
+func newPlayer(id, name string) *Player {
 	base := newBase(
 		id,
 		fmt.Sprintf(
-			"[%s/%s]",
-			playerInfo[0],
-			playerInfo[1],
+			"[%s#NoneType]",
+			name,
 		),
 	)
 	return &Player{
 		ID:   id,
-		Name: playerInfo[0],
-		Type: playerInfo[1],
+		Name: name,
 		Base: base,
 	}
 }

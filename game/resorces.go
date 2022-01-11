@@ -37,7 +37,7 @@ func newResource(id int, name string) *Resource {
 	cell := Cell{
 		IsBase:   false,
 		IsResrc:  true,
-		toString: "R",
+		toString: "Rr",
 		points:   [2]int{},
 	}
 

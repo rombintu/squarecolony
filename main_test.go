@@ -9,12 +9,12 @@ import (
 
 func TestBuildGame(t *testing.T) {
 	GAME := game.NewGame()
-	playerNameList := [][]string{
-		{"Player1", game.PlayerTypeListNames[0]},
-		{"Player2", game.PlayerTypeListNames[2]},
-	}
+	// playerNameList := [][]string{
+	// 	{"Player1", game.PlayerTypeListNames[0]},
+	// 	{"Player2", game.PlayerTypeListNames[2]},
+	// }
 	fmt.Println(GAME.Config)
-	GAME.Init(playerNameList)
+	// GAME.Init(playerNameList)
 	base := GAME.Battlefield.GetBases()[0]
 	ress := GAME.Battlefield.GetResources()
 	fmt.Println("BASE:", base)
@@ -24,11 +24,11 @@ func TestBuildGame(t *testing.T) {
 
 func TestShowBF(t *testing.T) {
 	GAME := game.NewGame()
-	playerNameList := [][]string{
-		{"Player1", game.PlayerTypeListNames[0]},
-		{"Player2", game.PlayerTypeListNames[2]},
-	}
+	// playerNameList := [][]string{
+	// 	{"Player1", game.PlayerTypeListNames[0]},
+	// 	{"Player2", game.PlayerTypeListNames[2]},
+	// }
 	fmt.Println(GAME.Config)
-	GAME.Init(playerNameList)
+	// GAME.Init(playerNameList)
 	GAME.Battlefield.ShowBF(GAME.Config.Gameplay.SizeField)
 }
