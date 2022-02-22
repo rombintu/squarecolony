@@ -9,16 +9,7 @@ import (
 	"syscall"
 
 	"github.com/rombintu/square_colony/game"
-	"github.com/rombintu/square_colony/server"
 )
-
-func runServer() {
-	server := server.NewServer("localhost", "5000")
-	if err := server.Start(); err != nil {
-		server.Logger.Fatalf("%v", err)
-	}
-	server.Logger.Info("Server exit")
-}
 
 func runGame() {
 	game := game.NewGame()
@@ -38,10 +29,9 @@ func programExit(ctx context.Context) {
 func main() {
 	ctx, cancelFunc := context.WithCancel(context.Background())
 	var wg sync.WaitGroup
-	wg.Add(3)
+	wg.Add(2)
 	defer wg.Done()
 	go programExit(ctx)
-	go runServer()
 	go runGame()
 	wg.Wait()
 	cancelFunc()

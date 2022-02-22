@@ -8,3 +8,8 @@ CountResorces = 7       # Count rescource points
 
 [Debug]
 LogLevel = "debug"
+LogFilePath = "server.log"
+
+[Server]
+Host="0.0.0.0"
+Port="5000"

@@ -11,15 +11,21 @@ type Config struct {
 	Title    string
 	Gameplay Gameplay
 	Debug    Debug
+	Server   Server
 }
 
+type Server struct {
+	Host string
+	Port string
+}
 type Gameplay struct {
 	SizeField     [2]int
 	CountResorces int
 }
 
 type Debug struct {
-	LogLevel string
+	LogLevel    string
+	LogFilePath string
 }
 
 func NewConfig() *Config {

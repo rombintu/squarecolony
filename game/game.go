@@ -1,11 +1,6 @@
 package game
 
 import (
-	"bufio"
-	"fmt"
-	"os"
-	"strings"
-
 	"github.com/rombintu/square_colony/utils"
 	"github.com/sirupsen/logrus"
 )
@@ -14,70 +9,48 @@ type Game struct {
 	Battlefield Battlefield
 	Logger      *logrus.Logger
 	Config      *utils.Config
+	Server      *Server
 }
 
 func NewGame() *Game {
+	config := utils.NewConfig()
 	return &Game{
-		Config: utils.NewConfig(),
+		Config: config,
+		Server: NewServer(config.Server.Host, config.Server.Port),
 	}
 }
 
+// func (g *Game) OpenLogFile() error {
+// 	f, err := os.OpenFile(g.Config.Debug.LogFilePath, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0666)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	g.LogFile = f
+// 	return nil
+// }
+
+// func (g *Game) CloseLogFile() error {
+// 	return g.LogFile.Close()
+// }
+
 func (g *Game) ConfigLoger() {
-	g.Logger = utils.NewLogger(g.Config.Debug.LogLevel)
+	g.Logger = logrus.New()
+	level, err := logrus.ParseLevel(g.Config.Debug.LogLevel)
+	if err != nil {
+		g.Logger.Fatal(err)
+	}
+	g.Logger.SetLevel(level)
 }
 
 func (g *Game) ConfigGame() {
 	g.Battlefield.SizeField = g.Config.Gameplay.SizeField
 }
 
-func (g *Game) HandleInput() {
-	for {
-		fmt.Print("ADMIN: ")
-		in := bufio.NewReader(os.Stdin)
-		line, err := in.ReadString('\n')
-		if err != nil {
-			g.Logger.Error(err)
-		}
-		g.caseInput(strings.Split(line, " "))
+func (g *Game) RunServer() {
+	if err := g.Server.Start(); err != nil {
+		g.Logger.Fatalf("%v", err)
 	}
-}
-
-func (g *Game) caseInput(input []string) {
-	switch strings.TrimSpace(input[0]) {
-	case "exit":
-		g.Logger.Info("Game exiting...")
-	case "help":
-		g.Logger.Info("useradd <username> <class>")
-	case "map":
-		g.Battlefield.ShowBF(g.Config.Gameplay.SizeField)
-	case "useradd":
-		if len(input) != 3 {
-			g.Logger.Error("Less values. Use: useradd <username> <class>")
-			return
-		}
-		if err := g.Battlefield.AddPlayer(input[1], input[2]); err != nil {
-			g.Logger.Error(err)
-			return
-		}
-		g.Logger.Info(
-			fmt.Sprintf("User %s was add. Password: %s", input[1], input[2]),
-		)
-	case "users":
-		players := g.Battlefield.GetPlayers()
-		for i, p := range players {
-			g.Logger.Info(
-				fmt.Sprintf("%d: %+v", i+1, p),
-			)
-		}
-
-	case "resourses":
-		resourses := g.Battlefield.GetResources()
-		for i, r := range resourses {
-			g.Logger.Info(
-				fmt.Sprintf("%d. %+v", i+1, r),
-			)
-		}
-	}
+	g.Logger.Info("Server exit")
 }
 
 func (g *Game) Init() {
@@ -90,5 +63,5 @@ func (g *Game) Init() {
 	g.Logger.Info("INIT POINTS")
 	g.Battlefield.RefreshPoints(g.Config.Gameplay.SizeField)
 
-	g.HandleInput()
+	g.RunServer()
 }
