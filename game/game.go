@@ -1,7 +1,10 @@
 package game
 
 import (
+	"fmt"
+
 	"github.com/rombintu/square_colony/utils"
+	uuid "github.com/satori/go.uuid"
 	"github.com/sirupsen/logrus"
 )
 
@@ -9,14 +12,13 @@ type Game struct {
 	Battlefield Battlefield
 	Logger      *logrus.Logger
 	Config      *utils.Config
-	Server      *Server
 }
 
 func NewGame() *Game {
 	config := utils.NewConfig()
+	config.Server.Admin = uuid.NewV4().String()
 	return &Game{
 		Config: config,
-		Server: NewServer(config.Server.Host, config.Server.Port),
 	}
 }
 
@@ -46,13 +48,6 @@ func (g *Game) ConfigGame() {
 	g.Battlefield.SizeField = g.Config.Gameplay.SizeField
 }
 
-func (g *Game) RunServer() {
-	if err := g.Server.Start(); err != nil {
-		g.Logger.Fatalf("%v", err)
-	}
-	g.Logger.Info("Server exit")
-}
-
 func (g *Game) Init() {
 	g.ConfigLoger()
 	g.ConfigGame()
@@ -62,6 +57,5 @@ func (g *Game) Init() {
 	g.Battlefield.InitResources(g.Config.Gameplay.CountResorces)
 	g.Logger.Info("INIT POINTS")
 	g.Battlefield.RefreshPoints(g.Config.Gameplay.SizeField)
-
-	g.RunServer()
+	g.Logger.Info(fmt.Sprintf("Admin: %s", g.Config.Server.Admin))
 }

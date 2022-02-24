@@ -15,8 +15,9 @@ type Config struct {
 }
 
 type Server struct {
-	Host string
-	Port string
+	Host  string
+	Port  string
+	Admin string
 }
 type Gameplay struct {
 	SizeField     [2]int
